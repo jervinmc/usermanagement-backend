@@ -4,14 +4,12 @@ from .models import User
 from .serializers import UserSerializer
 from rest_framework import filters
 from rest_framework import status, viewsets
-from channel.models import Channel
 import random
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string, get_template
 import string
-from channel.serializers import ChannelSerializer
 import random
 import string
 from rest_framework.response import Response
