@@ -33,33 +33,21 @@ class UserView(viewsets.ModelViewSet):
         
 
 
-# class Login(generics.GenericAPIView):
-#     def post(self,request,format=None):
-#         try:
-#             res = request.data
-#             items = User.objects.filter(email=res.get('email'),password=res.get('password')).count()
-#             if(items>0):
-#                items = User.objects.filter(email=res.get('email'),password=res.get('password')) 
-#                items = UserSerializer(items,many=True)
-#                print(items.data)
-#                if(items.data[0]['account_type']=='Client'):
-#                    items_channel = Channel.objects.filter(customer_id=items.data[0]['id']).count()
-#                    if(items_channel==0):
-#                         id_gen = id_generator()
-#                         items_1 = ChannelSerializer(data={"customer_id":items.data[0]['id'],"seller_id":"1","channel":id_gen})
-#                         items_1.is_valid(raise_exception=True)
-#                         items_1.save()
-#                         items.data[0]['channel'] = id_gen
-#                    else:
-#                        item_channel = Channel.objects.filter(customer_id=items.data[0]['id'])
-#                        serializer = ChannelSerializer(item_channel,many=True)
-#                        items.data[0]['channel'] = serializer.data[0]['channel']
-                    
-#             return Response(status=status.HTTP_200_OK,data=items.data)
+class Login(generics.GenericAPIView):
+    def post(self,request,format=None):
+        try:
+            res = request.data
+            items = User.objects.filter(email=res.get('email'),password=res.get('password')).count()
+            if(items>0):
+               items = User.objects.filter(email=res.get('email'),password=res.get('password')) 
+               items = UserSerializer(items,many=True)       
+               return Response(status=status.HTTP_200_OK,data=items.data)
+            else:
+               return Response(status=status.HTTP_404_NOT_FOUND,data=items.data)
             
-#         except Exception as e:
-#             print(e)
-#             return Response(status=status.HTTP_404_NOT_FOUND,data=[])
+        except Exception as e:
+            print(e)
+            return Response(status=status.HTTP_404_NOT_FOUND,data=[])
 
 
 
